@@ -75,7 +75,6 @@ const HomePage: React.FC = () => {
 HomePage.displayName = "HomePage";
 export default memo(HomePage);
 
-// Definições de advertising permanecem iguais
 const Sweepstake: AdvertisingSectionProps = {
   alt: "Preencha o Formulário de inscrição para participar do sorteio ESPECIAL DE 1 CANECA DA TV REAÇÃO",
   src: "/img/temp/sorteio/3canecas.jpeg",

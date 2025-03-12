@@ -1,5 +1,3 @@
-"use server";
-
 const baseURL = process.env.BASE_URL || "";
 
 async function fetchWrapper(endpoint: string, options: RequestInit = {}): Promise<any> {

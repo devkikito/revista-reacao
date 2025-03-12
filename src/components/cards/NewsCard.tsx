@@ -30,11 +30,9 @@ export const NewsCardMain = (data: Noticia) => {
       />
       <div className="flex flex-col text-start">
         <div className="flex gap-[.625rem] items-center">
-          {data.categoria && (
-            <span className="paragraph-1 p-1 rounded-[.25rem] border border-[#FF5C00] w-max">
-              {getCategoryInfo(data.categoria).name}
-            </span>
-          )}
+          <span className="paragraph-1 p-1 rounded-[.25rem] border border-[#FF5C00] w-max">
+            {getCategoryInfo(data.categoria).name}
+          </span>
           <span className="">- {formatDateMouth(data.data as unknown as string)}</span>
         </div>
         <h2 className="h2-medium">{data.titulo}</h2>

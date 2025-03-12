@@ -18,14 +18,10 @@ export async function getAllNewsAction(): Promise<ApiResponse<Noticia>> {
 }
 
 export async function getMainBannerNewsAction(): Promise<ApiResponse<Noticia>> {
-  const res: any = await findMainBannerNoticia();
-  const data = res.data.content;
-  return await data;
+  return await findMainBannerNoticia();
 }
 export async function getThreeMainBannerNewsAction(): Promise<ApiResponse<Noticia>> {
-  const res: any = await find3MainBannerNoticia();
-  const data = res.data.content;
-  return await data;
+  return await find3MainBannerNoticia();
 }
 
 export async function getMainBannerNoticiasAction(): Promise<ApiResponse<Noticia>> {
@@ -41,9 +37,7 @@ export async function getNewsByIdAction(id: UUID): Promise<Noticia> {
 }
 
 export async function getAllDailyNewsAction(): Promise<ApiResponse<Noticia>> {
-  const res: any = await findAllDailyNoticia();
-  const data = res.data;
-  return await data;
+  return await findAllDailyNoticia();
 }
 
 export async function getAllWeeklyNewsAction(): Promise<ApiResponse<Noticia>> {
