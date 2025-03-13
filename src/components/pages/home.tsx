@@ -76,10 +76,10 @@ HomePage.displayName = "HomePage";
 export default memo(HomePage);
 
 const Sweepstake: AdvertisingSectionProps = {
-  alt: "Preencha o Formulário de inscrição para participar do sorteio ESPECIAL DE 1 CANECA DA TV REAÇÃO",
-  src: "/img/temp/sorteio/3canecas.jpeg",
-  title: "Preencha o Formulário de inscrição para participar do sorteio de 1 CANECA DA TV REAÇÃO.",
-  description: "Preencha o Formulário de inscrição para participar do sorteio ESPECIAL DE 1 CANECA DA TV REAÇÃO.",
+  alt: "SORTEIO DA CANECA DA TV REAÇÃO SERÁ NO DIA 28 DE E ESSA SEMANA VAMOS SORTEAR O LIVRO – UM MOTORISTA ESPECIAL DE CARRETA – SUPERAÇÃO ALÉM DA ESTRADA – DE HERMES OLIVEIR",
+  src: "/img/temp/sorteio/LIVROS.png",
+  title: "SORTEIO DA CANECA DA TV REAÇÃO SERÁ NO DIA 28 DE E ESSA SEMANA VAMOS SORTEAR O LIVRO – UM MOTORISTA ESPECIAL DE CARRETA – SUPERAÇÃO ALÉM DA ESTRADA – DE HERMES OLIVEIR",
+  description: "SORTEIO DA CANECA DA TV REAÇÃO SERÁ NO DIA 28 DE E ESSA SEMANA VAMOS SORTEAR O LIVRO – UM MOTORISTA ESPECIAL DE CARRETA – SUPERAÇÃO ALÉM DA ESTRADA – DE HERMES OLIVEIR.",
 };
 
 const firstAdvertising: AdvertisingSectionProps = {
