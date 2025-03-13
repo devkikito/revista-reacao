@@ -7,22 +7,22 @@ export async function findAllNoticia(): Promise<ApiResponse<Noticia>> {
 
 export async function findAllFilteredNoticia(params: FilterNoticiaParams = {}): Promise<ApiResponse<Noticia>> {
   const queryString = new URLSearchParams(params as any).toString();
-  return fetchWrapper(`/noticias/filtradas?${queryString}`, { cache: "no-store" });
+  return fetchWrapper(`/noticias/filtradas/v2?${queryString}`, { cache: "no-store" });
 }
 
 export async function findAllPaginatedNoticia(
   params: FilterPaginatedNoticiaParams = {}
 ): Promise<ApiResponse<Noticia>> {
   const queryString = new URLSearchParams(params as any).toString();
-  return fetchWrapper(`/noticias/filtradas?${queryString}`);
+  return fetchWrapper(`/noticias/filtradas/v2?${queryString}`);
 }
 
 export async function find3MainBannerNoticia(): Promise<ApiResponse<Noticia>> {
-  return fetchWrapper("/noticias/filtradas?sort=data,desc&page=2&size=3", {});
+  return fetchWrapper("/noticias/filtradas/v2?sort=data,desc&page=2&size=3", {});
 }
 
 export async function findMainBannerNoticia(): Promise<ApiResponse<Noticia>> {
-  return fetchWrapper("/noticias/filtradas?sort=data,desc&page=9&size=1", {});
+  return fetchWrapper("/noticias/filtradas/v2?sort=data,desc&page=9&size=1", {});
 }
 
 export async function findAllDailyNoticia(): Promise<ApiResponse<Noticia>> {
@@ -40,15 +40,15 @@ export async function findAllDailyNoticia(): Promise<ApiResponse<Noticia>> {
     .join("-");
 
   const queryString = new URLSearchParams({ data: dataAtualFormatada }).toString();
-  return fetchWrapper(`/noticias/filtradas?${queryString}`);
+  return fetchWrapper(`/noticias/filtradas/v2?${queryString}`);
 }
 
 export async function findMainBannerNoticiasPage(): Promise<ApiResponse<Noticia>> {
-  return await fetchWrapper("/noticias/filtradas?sort=data,desc&page=13&size=1", {});
+  return await fetchWrapper("/noticias/filtradas/v2?sort=data,desc&page=13&size=1", {});
 }
 
 export async function findAllWeeklyNoticia(): Promise<ApiResponse<Noticia>> {
-  return fetchWrapper(`/noticias/filtradas?ultimaSemana=true&size=100`, { cache: "no-store" });
+  return fetchWrapper(`/noticias/filtradas/v2?ultimaSemana=true&size=100`, { cache: "no-store" });
 }
 
 export async function findNoticiaById(id: string): Promise<Noticia> {
