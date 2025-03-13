@@ -19,21 +19,27 @@ export const EdicoesPDFSection = () => {
       try {
         const from = currentPage * itemsPerPage;
         const to = from + itemsPerPage - 1;
-        const { data } = await supabase
+
+        const { data, count, error } = await supabase
           .from("editions")
           .select("*", { count: "exact" })
           .range(from, to)
           .order("id", { ascending: false });
+
+        if (error) throw error;
+
         setMagazine(data as Revista[]);
+        if (count !== null) {
+          setTotalItems(count);
+        }
       } catch (error) {
-        console.log("erro:", error);
+        console.log("Erro ao buscar edições:", error);
       } finally {
         setMounted(true);
       }
     }
     fetch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [currentPage, itemsPerPage, setTotalItems]);
 
   if (!mounted) {
     return (
@@ -46,9 +52,9 @@ export const EdicoesPDFSection = () => {
   return (
     <section className="w-full flex flex-wrap justify-center items-center gap-x-[1.3125rem] gap-y-[4.5rem] max-sm:gap-y-[12.5rem] max-xl:grid-cols-1 mt-[3.3125rem]">
       {magazine &&
-        magazine.map((data) => {
-          return <MiniCardPDFEdition image={data.image_url} key={data.id} title={data.name} pdf={data.pdf_url} />;
-        })}
+        magazine.map((data) => (
+          <MiniCardPDFEdition image={data.image_url} key={data.id} title={data.name} pdf={data.pdf_url} />
+        ))}
       <Pagination />
     </section>
   );

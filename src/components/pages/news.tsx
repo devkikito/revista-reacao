@@ -9,12 +9,15 @@ import { getPaginatedNewsAction } from "@/app/actions/newsActions";
 import { MainNewsSection } from "@/components/sections/MainNewsSection";
 import { NewsCard } from "@/components/cards/NewsCard";
 import { TopicTitle } from "@/components/ui/TopicTitle";
+import { Skeleton } from "../ui/skeleton";
 
 export default function NewsPage() {
   const [newsByCategory, setNewsByCategory] = React.useState<Record<string, Noticia[]>>({});
+  const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
     async function fetchNewsByCategory() {
+      setIsLoading(true);
       const allNews = await Promise.all(
         categories.map(async (category) => {
           try {
@@ -41,9 +44,22 @@ export default function NewsPage() {
         {} as Record<string, Noticia[]>
       );
       setNewsByCategory(newsByCategoryObj);
+      setIsLoading(false);
     }
     fetchNewsByCategory();
   }, []);
+
+  const NewsCardSkeleton = () => (
+    <div className="p-1 flex items-start justify-center h-full">
+      <div className="w-full max-w-[80vw] lg:max-w-[25rem] flex flex-col gap-4">
+        <Skeleton className="h-48 w-full" />
+        <Skeleton className="h-6 w-3/4" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-1/2" />
+      </div>
+    </div>
+  );
 
   return (
     <section className="flex flex-col gap-20">
@@ -58,21 +74,29 @@ export default function NewsPage() {
             </Link>
           </div>
           <CarouselContent>
-            {newsByCategory[category.id]?.map((data) => (
-              <CarouselItem key={data.id} className="lg:basis-[auto] select-none">
-                <div className="p-1 flex items-start justify-center h-full">
-                  <NewsCard
-                    extraClassName="w-full max-w-[80vw] justify-between lg:h-full lg:max-w-[25rem]"
-                    imageUrl={data.imagem}
-                    title={data.titulo}
-                    paragraph={data.resumo}
-                    category={getCategoryInfo(data.categoria).name}
-                    date={formatDateMouth(data.data as unknown as string)}
-                    link={`/noticias/noticia?id=${data.id}`}
-                  />
-                </div>
-              </CarouselItem>
-            ))}
+            {isLoading
+              ? Array(4)
+                  .fill(0)
+                  .map((_, index) => (
+                    <div className="w-full" key={index}>
+                      <NewsCardSkeleton />
+                    </div>
+                  ))
+              : newsByCategory[category.id]?.map((data) => (
+                  <CarouselItem key={data.id} className="lg:basis-[auto] select-none">
+                    <div className="p-1 flex items-start justify-center h-full">
+                      <NewsCard
+                        extraClassName="w-full max-w-[80vw] justify-between lg:h-full lg:max-w-[25rem]"
+                        imageUrl={data.imagem}
+                        title={data.titulo}
+                        paragraph={data.resumo}
+                        category={getCategoryInfo(data.categoria).name}
+                        date={formatDateMouth(data.data as unknown as string)}
+                        link={`/noticias/noticia?id=${data.id}`}
+                      />
+                    </div>
+                  </CarouselItem>
+                ))}
           </CarouselContent>
           <CarouselPrevious />
           <CarouselNext />

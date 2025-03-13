@@ -6,6 +6,8 @@ interface PaginationContextProps {
   totalItems: number;
   itemsPerPage: number;
   totalPages: number;
+  searchText: string;
+  setSearchText: (text: string) => void;
   setTotalItems: (totalItems: number) => void;
   setItemsPerPage: (itemsPerPage: number) => void;
   setCurrentPage: (page: number) => void;
@@ -15,24 +17,18 @@ interface PaginationContextProps {
   goToPreviousPage: () => void;
 }
 
-const PaginationContext = createContext<PaginationContextProps | undefined>(
-  undefined
-);
+const PaginationContext = createContext<PaginationContextProps | undefined>(undefined);
 
-export const PaginationProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const PaginationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [searchText, setSearchText] = useState("");
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   const goToFirstPage = useCallback(() => setCurrentPage(0), []);
-  const goToLastPage = useCallback(
-    () => setCurrentPage(totalPages - 1),
-    [totalPages]
-  );
+  const goToLastPage = useCallback(() => setCurrentPage(totalPages - 1), [totalPages]);
   const goToNextPage = useCallback(() => {
     if (currentPage < totalPages - 1) setCurrentPage((prev) => prev + 1);
   }, [currentPage, totalPages]);
@@ -48,6 +44,7 @@ export const PaginationProvider: React.FC<{ children: React.ReactNode }> = ({
         totalItems,
         itemsPerPage,
         totalPages,
+        searchText,
         setTotalItems,
         setItemsPerPage,
         setCurrentPage,
@@ -55,6 +52,7 @@ export const PaginationProvider: React.FC<{ children: React.ReactNode }> = ({
         goToLastPage,
         goToNextPage,
         goToPreviousPage,
+        setSearchText,
       }}
     >
       {children}

@@ -70,6 +70,7 @@ interface FilterPaginatedNoticiaParams {
   asc?: boolean;
   desc?: boolean;
   categoria?: CategoriesType;
+  palavraChave?: string;
 }
 
 type Noticia = {
