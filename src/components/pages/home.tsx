@@ -76,12 +76,10 @@ HomePage.displayName = "HomePage";
 export default memo(HomePage);
 
 const Sweepstake: AdvertisingSectionProps = {
-  alt: "CHEGOU A SEMANA DO SORTEIO DA CANECA DA TV REAÇÃO SERÁ NESTA SEXTA-FEIRA - DIA 28 DE MARÇO – A ÚLTIMA SEXTA-FEIRA DO MÊS",
-  src: "/img/temp/sorteio/3canecas.jpeg",
-  title:
-    "CHEGOU A SEMANA DO SORTEIO DA CANECA DA TV REAÇÃO SERÁ NESTA SEXTA-FEIRA - DIA 28 DE MARÇO – A ÚLTIMA SEXTA-FEIRA DO MÊS",
-  description:
-    "CHEGOU A SEMANA DO SORTEIO DA CANECA DA TV REAÇÃO SERÁ NESTA SEXTA-FEIRA - DIA 28 DE MARÇO – A ÚLTIMA SEXTA-FEIRA DO MÊS.",
+  alt: "CHEGOU A SEMANA DO SORTEIO DO LIVRO ME DÊ SUA MÃO - HISTÓRIAS DE SUPERAÇÃO - DE MARCELO VILAS BOAS",
+  src: "/img/temp/sorteio/medesuamao.jpeg",
+  title: "CHEGOU A SEMANA DO SORTEIO DO LIVRO ME DÊ SUA MÃO - HISTÓRIAS DE SUPERAÇÃO - DE MARCELO VILAS BOAS",
+  description: "CHEGOU A SEMANA DO SORTEIO DO LIVRO ME DÊ SUA MÃO - HISTÓRIAS DE SUPERAÇÃO - DE MARCELO VILAS BOAS.",
 };
 
 const firstAdvertising: AdvertisingSectionProps = {
