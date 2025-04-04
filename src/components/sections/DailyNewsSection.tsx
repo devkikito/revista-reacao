@@ -5,9 +5,9 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { NewsCard } from "../cards/NewsCard";
 import { TopicTitle } from "../ui/TopicTitle";
 import { Noticia } from "@/@types/services";
-import { getAllDailyNewsAction } from "@/app/actions/newsActions";
 import { getCategoryInfo } from "@/utils/categories";
 import { formatDateMouth } from "@/utils/formateData";
+import { findAllDailyNoticia } from "@/services/revistaReacaoApi/noticiaService";
 
 export function DailyNewsSection() {
   const [dailyNews, setDailyNews] = React.useState<Noticia[] | null>(null);
@@ -16,8 +16,8 @@ export function DailyNewsSection() {
   React.useEffect(() => {
     async function fetch() {
       try {
-        const res = await getAllDailyNewsAction();
-        setDailyNews(res.content);
+        const res = await findAllDailyNoticia();
+        setDailyNews(res.data?.content || []);
       } catch (error) {
         console.log(error);
       } finally {

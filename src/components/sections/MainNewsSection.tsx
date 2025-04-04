@@ -1,8 +1,8 @@
 import { Noticia } from "@/@types/services";
-import { getMainBannerNoticiasAction } from "@/app/actions/newsActions";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { findMainBannerNoticia } from "@/services/revistaReacaoApi/noticiaService";
 
 export const MainNewsSection = () => {
   const [noticiaById, setNoticiaById] = React.useState<Noticia>();
@@ -10,8 +10,8 @@ export const MainNewsSection = () => {
   React.useEffect(() => {
     const fetchFornecedores = async () => {
       try {
-        const responseTwo = await getMainBannerNoticiasAction();
-        setNoticiaById(responseTwo.content[0]);
+        const responseTwo = await findMainBannerNoticia();
+        setNoticiaById(responseTwo.data?.content[0]);
       } catch (error) {
         console.error("Erro ao buscar os programas:", error);
       }

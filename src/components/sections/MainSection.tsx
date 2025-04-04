@@ -1,18 +1,13 @@
 "use client";
 
+import React from "react";
 import { Noticia } from "@/@types/services";
-import {
-  getMainBannerNewsAction,
-  getNewsByIdAction,
-  getPaginatedNewsAction,
-  getThreeMainBannerNewsAction,
-} from "@/app/actions/newsActions";
 import { NewsCard, NewsCardMain } from "@/components/cards/NewsCard";
 import { TopicTitle } from "@/components/ui/TopicTitle";
 import { getCategoryInfo } from "@/utils/categories";
 import { formatDateMouth } from "@/utils/formateData";
-import React from "react";
 import { Skeleton } from "../ui/skeleton";
+import { find3MainBannerNoticia, findMainBannerNoticia } from "@/services/revistaReacaoApi/noticiaService";
 
 export const MainSection = () => {
   const [isMounted, setIsMounted] = React.useState<boolean>(false);
@@ -22,10 +17,10 @@ export const MainSection = () => {
   React.useEffect(() => {
     async function fetch() {
       try {
-        const threeNewsRes = await getThreeMainBannerNewsAction();
-        const unicNewsRes = await getMainBannerNewsAction();
-        setThreeNewsData(threeNewsRes.content);
-        setUnicNewsData(unicNewsRes.content[0]);
+        const threeNewsRes = await find3MainBannerNoticia();
+        const unicNewsRes = await findMainBannerNoticia();
+        setThreeNewsData(threeNewsRes.data?.content || []);
+        setUnicNewsData(unicNewsRes.data?.content[0] || null);
       } catch (error) {
         console.log(error);
       } finally {

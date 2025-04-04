@@ -11,7 +11,8 @@ export async function generateMetadata({
   searchParams,
 }: Readonly<{ searchParams: { id: string } }>): Promise<Metadata> {
   try {
-    const noticias = await findNoticiaById(searchParams.id);
+    const res = await findNoticiaById(searchParams.id);
+    const noticias = res.data;
     return {
       title: {
         template: `${noticias.titulo} | Notícias Revista Reação`,
@@ -45,13 +46,14 @@ export async function generateMetadata({
 export default async function Noticia({ searchParams }: Readonly<{ searchParams: { id: string } }>) {
   if (searchParams.id) {
     try {
-      const news = await findNoticiaById(searchParams.id);
+      const res = await findNoticiaById(searchParams.id);
+      const noticias = res.data;
       const moreNews = await findAllFilteredNoticia({
-        categoria: news.categoria,
+        categoria: noticias.categoria,
         page: 0,
         size: 5,
       });
-      return <NoticiaIndividual noticia={news} moreNews={moreNews} />;
+      return <NoticiaIndividual noticia={noticias} moreNews={moreNews} />;
     } catch (error) {
       console.log("Failed to load news data: ", error);
       return <span>Erro ao carregar as informações da notícia selecionada</span>;

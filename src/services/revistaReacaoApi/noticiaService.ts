@@ -1,31 +1,34 @@
 import { ApiResponse, FilterNoticiaParams, FilterPaginatedNoticiaParams, Noticia } from "@/@types/services";
-import fetchWrapper from "./fetchWrapper";
+import { AxiosResponse } from "axios";
+import api from "../revistaApi/useApi";
 
-export async function findAllNoticia(): Promise<ApiResponse<Noticia>> {
-  return fetchWrapper("/noticias?page=0&size=10&sort=data,desc", { cache: "no-store" });
+export async function findAllNoticia(): Promise<AxiosResponse<ApiResponse<Noticia>>> {
+  return api.get("/noticias?page=0&size=10&sort=data,desc");
 }
 
-export async function findAllFilteredNoticia(params: FilterNoticiaParams = {}): Promise<ApiResponse<Noticia>> {
+export async function findAllFilteredNoticia(
+  params: FilterNoticiaParams = {}
+): Promise<AxiosResponse<ApiResponse<Noticia>>> {
   const queryString = new URLSearchParams(params as any).toString();
-  return fetchWrapper(`/noticias/filtradas/v2?${queryString}`, { cache: "no-store" });
+  return api.get(`/noticias/filtradas/v2?${queryString}`);
 }
 
 export async function findAllPaginatedNoticia(
   params: FilterPaginatedNoticiaParams = {}
-): Promise<ApiResponse<Noticia>> {
+): Promise<AxiosResponse<ApiResponse<Noticia>>> {
   const queryString = new URLSearchParams(params as any).toString();
-  return fetchWrapper(`/noticias/filtradas/v2?${queryString}`);
+  return api.get(`/noticias/filtradas/v2?${queryString}`);
 }
 
-export async function find3MainBannerNoticia(): Promise<ApiResponse<Noticia>> {
-  return fetchWrapper("/noticias/filtradas/v2?sort=data,desc&page=2&size=3", {});
+export async function find3MainBannerNoticia(): Promise<AxiosResponse<ApiResponse<Noticia>>> {
+  return api.get("/noticias/filtradas/v2?sort=data,desc&page=2&size=3", {});
 }
 
-export async function findMainBannerNoticia(): Promise<ApiResponse<Noticia>> {
-  return fetchWrapper("/noticias/filtradas/v2?sort=data,desc&page=9&size=1", {});
+export async function findMainBannerNoticia(): Promise<AxiosResponse<ApiResponse<Noticia>>> {
+  return api.get("/noticias/filtradas/v2?sort=data,desc&page=9&size=1", {});
 }
 
-export async function findAllDailyNoticia(): Promise<ApiResponse<Noticia>> {
+export async function findAllDailyNoticia(): Promise<AxiosResponse<ApiResponse<Noticia>>> {
   const dataAtual = new Date();
   const timeZone = "America/Sao_Paulo";
   const dataAtualFormatada = dataAtual
@@ -40,22 +43,22 @@ export async function findAllDailyNoticia(): Promise<ApiResponse<Noticia>> {
     .join("-");
 
   const queryString = new URLSearchParams({ data: dataAtualFormatada }).toString();
-  return fetchWrapper(`/noticias/filtradas/v2?${queryString}`);
+  return api.get(`/noticias/filtradas/v2?${queryString}`);
 }
 
-export async function findMainBannerNoticiasPage(): Promise<ApiResponse<Noticia>> {
-  return await fetchWrapper("/noticias/filtradas/v2?sort=data,desc&page=13&size=1", {});
+export async function findMainBannerNoticiasPage(): Promise<AxiosResponse<ApiResponse<Noticia>>> {
+  return api.get(`/noticias/filtradas/v2?sort=data,desc&page=13&size=1`);
 }
 
-export async function findAllWeeklyNoticia(): Promise<ApiResponse<Noticia>> {
-  return fetchWrapper(`/noticias/filtradas/v2?ultimaSemana=true&size=100`, { cache: "no-store" });
+export async function findAllWeeklyNoticia(): Promise<AxiosResponse<ApiResponse<Noticia>>> {
+  return api.get(`/noticias/filtradas/v2?ultimaSemana=true&size=100`);
 }
 
-export async function findNoticiaById(id: string): Promise<Noticia> {
+export async function findNoticiaById(id: string): Promise<AxiosResponse<Noticia>> {
   const timestamp = new Date().getTime();
-  return fetchWrapper(`/noticias/${id}?_=${timestamp}`);
+  return api.get(`/noticias/${id}?_=${timestamp}`);
 }
 
-export async function findAllArchivedNoticia(): Promise<Noticia[]> {
-  return fetchWrapper("/noticias/arquivadas/admin");
+export async function findAllArchivedNoticia(): Promise<AxiosResponse<Noticia[]>> {
+  return api.get("/noticias/arquivadas/admin");
 }

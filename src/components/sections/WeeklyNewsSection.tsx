@@ -5,9 +5,9 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { NewsCard } from "../cards/NewsCard";
 import { TopicTitle } from "../ui/TopicTitle";
 import { Noticia } from "@/@types/services";
-import { getAllWeeklyNewsAction } from "@/app/actions/newsActions";
 import { getCategoryInfo } from "@/utils/categories";
 import { formatDateMouth } from "@/utils/formateData";
+import { findAllWeeklyNoticia } from "@/services/revistaReacaoApi/noticiaService";
 
 const image = {
   imageUrl: "/img/temp/temp.png",
@@ -25,8 +25,8 @@ export function WeeklyNewsSection() {
   React.useEffect(() => {
     async function fetch() {
       try {
-        const res = await getAllWeeklyNewsAction();
-        setWeeklyNews(res.content);
+        const res = await findAllWeeklyNoticia();
+        setWeeklyNews(res.data?.content || []);
       } catch (error) {
         console.log(error);
       } finally {

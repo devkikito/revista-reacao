@@ -5,11 +5,11 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { CategoriesType, FilterPaginatedNoticiaParams, Noticia } from "@/@types/services";
 import { formatDateMouth } from "@/utils/formateData";
 import { getCategoryInfo } from "@/utils/categories";
-import { getPaginatedNewsAction } from "@/app/actions/newsActions";
 import { MainNewsSection } from "@/components/sections/MainNewsSection";
 import { NewsCard } from "@/components/cards/NewsCard";
 import { TopicTitle } from "@/components/ui/TopicTitle";
 import { Skeleton } from "../ui/skeleton";
+import { findAllPaginatedNoticia } from "@/services/revistaReacaoApi/noticiaService";
 
 export default function NewsPage() {
   const [newsByCategory, setNewsByCategory] = React.useState<Record<string, Noticia[]>>({});
@@ -27,8 +27,9 @@ export default function NewsPage() {
               size: 6,
               categoria: category.id as unknown as CategoriesType,
             };
-            const res = await getPaginatedNewsAction(pagination);
-            return { category: category.id, news: res.content };
+            const res = await findAllPaginatedNoticia(pagination);
+            console.log(res.data?.content);
+            return { category: category.id, news: res.data?.content || [] };
           } catch (error) {
             console.log(error);
             return { category: category.id, news: [] };

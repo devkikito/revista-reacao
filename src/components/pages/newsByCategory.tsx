@@ -3,11 +3,11 @@ import React from "react";
 import { CategoriesType, FilterPaginatedNoticiaParams, Noticia } from "@/@types/services";
 import { formatDateMouth } from "@/utils/formateData";
 import { getCategoryInfo } from "@/utils/categories";
-import { getPaginatedNewsAction } from "@/app/actions/newsActions";
 import { NewsCard } from "@/components/cards/NewsCard";
 import { TopicTitle } from "@/components/ui/TopicTitle";
 import { usePagination } from "@/context/PaginationContext";
 import Pagination from "../ui/paginationControler";
+import { findAllPaginatedNoticia } from "@/services/revistaReacaoApi/noticiaService";
 
 interface NewsByCategoryPageProps {
   category: string;
@@ -28,9 +28,9 @@ export default function NewsByCategoryPage({ category }: Readonly<NewsByCategory
           categoria: category as unknown as CategoriesType,
           palavraChave: searchText,
         };
-        const res = await getPaginatedNewsAction(pagination);
-        setNewsByCategory(res.content);
-        setTotalItems(res.totalElements);
+        const res = await findAllPaginatedNoticia(pagination);
+        setNewsByCategory(res.data?.content || []);
+        setTotalItems(res.data?.totalElements || 0);
       } catch (error) {
         console.log(error);
       }
